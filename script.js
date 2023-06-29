@@ -6,7 +6,7 @@ const wrapper = document.querySelector(".wrapper"),
   wIcon = document.querySelector(".weather-part img"),
   arrowBack = wrapper.querySelector("header i");
 let api;
-
+const apiKey = process.env.API_KEY;
 const toggleTheme = document.getElementById("toggle-theme");
 const body = document.body;
 
@@ -30,9 +30,10 @@ locationBtn.addEventListener("click", () => {
     alert("Your browser not support geolocation api");
   }
 });
+
 function onSuccess(position) {
   const { latitude, longitude } = position.coords;
-  api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apyKey}`;
+  api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
   fetchData();
 }
 function onError(error) {
@@ -73,27 +74,22 @@ function weatherDetails(info) {
       const newFaviconUrl = "./icons/sun.png";
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
-
     } else if (id >= 200 && id <= 232) {
       const newFaviconUrl = "./icons/thunderstorm.png";
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
-
     } else if (id >= 600 && id <= 622) {
       const newFaviconUrl = "./icons/snowing.png";
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
-
     } else if (id >= 701 && id <= 781) {
       const newFaviconUrl = "./icons/fog.png";
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
-
     } else if (id >= 801 && id <= 804) {
       const newFaviconUrl = "./icons/cloud.png";
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
-
     } else if ((id >= 300 && id <= 321) || (id >= 500 && id <= 531)) {
       const newFaviconUrl = "./icons/rain.png";
       wIcon.src = newFaviconUrl;
@@ -104,7 +100,7 @@ function weatherDetails(info) {
     wrapper.querySelector(".location span").innerText = `${city}, ${country}`;
     wrapper.querySelector(".temp .numb-2").innerText = Math.floor(feels_like);
     wrapper.querySelector(".humidity span").innerText = `${humidity}%`;
-    wrapper.querySelector('.wind span').innerText = `${speed}km/h`;
+    wrapper.querySelector(".wind span").innerText = `${speed}km/h`;
     infoTxt.classList.remove("pending", "error");
     wrapper.classList.add("active");
   }
