@@ -99,9 +99,6 @@ header i {
   border: 1px solid #bfbfbf;
 }
 
-/* .input-part input:is(focus, :valid) {
-  border: 2px solid #3d3570;
-} */
 .input {
   color: dimgray;
   border: 2px solid dimgrey;
