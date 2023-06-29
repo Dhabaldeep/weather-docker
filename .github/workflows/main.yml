@@ -1,0 +1,16 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+      - name: Fetch API key
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo $API_KEY > api-key.txt
+
+    
