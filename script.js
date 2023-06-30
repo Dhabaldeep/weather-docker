@@ -16,9 +16,25 @@ toggleTheme.addEventListener("change", () => {
     body.classList.remove("dark-mode");
   }
 });
+
+const currentTime = new Date();
+const hours = currentTime.getHours();
+const isNight = (hours >= 19 && hours <= 24) || (hours >= 1 && hours <= 6);
+const iconFolderPath = isNight ? "./icons/night/" : "./icons/day/";
+
+function validateInput(value) {
+  const regex = /^[a-zA-Z\s]*$/;
+  return regex.test(value);
+}
+
 inputField.addEventListener("keyup", (e) => {
   if (e.key == "Enter" && inputField.value != "") {
-    requestApi(inputField.value);
+    if (validateInput(inputField.value)) {
+      requestApi(inputField.value);
+    } else {
+      infoTxt.innerText = "city name does not contain numeric characters";
+      infoTxt.classList.add("error");
+    }
   }
 });
 
@@ -70,27 +86,27 @@ function weatherDetails(info) {
     const favicon = document.getElementById("favicon");
 
     if (id == 800) {
-      const newFaviconUrl = "./icons/sun.png";
+      const newFaviconUrl = `${iconFolderPath}clear.png`;
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
     } else if (id >= 200 && id <= 232) {
-      const newFaviconUrl = "./icons/thunderstorm.png";
+      const newFaviconUrl = `${iconFolderPath}thunderstorm.png`;
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
     } else if (id >= 600 && id <= 622) {
-      const newFaviconUrl = "./icons/snowing.png";
+      const newFaviconUrl = `${iconFolderPath}snow.png`;
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
     } else if (id >= 701 && id <= 781) {
-      const newFaviconUrl = "./icons/fog.png";
+      const newFaviconUrl = `${iconFolderPath}fogg.png`;
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
     } else if (id >= 801 && id <= 804) {
-      const newFaviconUrl = "./icons/cloud.png";
+      const newFaviconUrl = `${iconFolderPath}cloud.png`;
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
     } else if ((id >= 300 && id <= 321) || (id >= 500 && id <= 531)) {
-      const newFaviconUrl = "./icons/rain.png";
+      const newFaviconUrl = `${iconFolderPath}rain.png`;
       wIcon.src = newFaviconUrl;
       favicon.href = newFaviconUrl;
     }
@@ -107,4 +123,6 @@ function weatherDetails(info) {
 }
 arrowBack.addEventListener("click", () => {
   wrapper.classList.remove("active");
+  inputField.value = "";
+  inputField.focus();
 });
