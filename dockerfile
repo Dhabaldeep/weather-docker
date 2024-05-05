@@ -5,5 +5,5 @@ FROM nginx:alpine
 COPY index.html style.css script.js /usr/share/nginx/html/
 COPY icons /usr/share/nginx/html/icons
 
-# Expose port 80 to allow external access.
+# Expose port 80 to allow external access.  
 EXPOSE 80
